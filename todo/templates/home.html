@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container text-center">
+    <div class="card-custom">
+        <h1 class="display-4"> Your ToDo World </h1>
+        <p class="lead"> Organize your life, one task at a time.</p>
+        <p> Create a new list, add tasks, and mark them as done. </p>
+        <p> Stay on top of your tasks and never miss a deadline again. </p>
+        <a href={% url 'todo' %}  class="btn btn-custom btn-lg"> Get Started bro! </a>
+        
+    </div>
+</div>
+
+{% endblock %}

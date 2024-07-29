@@ -1,0 +1,84 @@
+ 
+
+ {% extends 'base.html'%}
+ {% load static %}
+
+ {% block body %}
+
+    <div class="container" style="background-image: url('{% static 'leaf.jpg' %}'); background-size: cover; height: 100vh;">
+        <h1 class="text-center">ToDo List ({{ todos|length }})</h1>
+       
+        
+
+
+
+
+        <table class="table table-hover table-custom rounded-table"style="background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 10px;">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col"style="background-color:  #a77eaf; color: #fff;">#</th>
+                    <th scope="col"style="background-color:  #a77eaf; color: #fff;">Task</th>
+                    <th scope="col"style="background-color:  #a77eaf ; color: #fff;">Priority</th>
+                    <th scope="col"style="background-color:  #a77eaf; color: #fff;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for todo in todos %}
+
+            <tr data-priority=" '{{ todo.priority }} ' ">
+                <th scope="row">{{ forloop.counter }}</th>
+                <td style="color: {% if todo.priority == 'High' %}red{% elif todo.priority == 'Medium' %}orange{% else %}green{% endif %};">{{ todo.task }}</td>
+                <td>{{ todo.priority }}</td>
+                <td>
+                    <a href="{% url 'update_todo' todo.id %}" class="btn btn-sm btn-transparent rounded-pill text-success"  >Update</a>
+                    <a href="{% url 'remove_todo' todo.id %}"   class="btn btn-sm btn-transparent rounded-pill text-danger">Remove</a>
+                    <a href="{% url 'mark_complete' todo.id %}"   class="btn btn-sm btn-transparent rounded-pill text-warning">Completed</a>
+              </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+ <div class = "text-center">
+<a href = "{% url 'add_todo' %}"   class="btn btn-custom btn-lg"> Add Todo bro</a>
+ </div> 
+</div>
+
+
+
+<script>
+    $(document).ready(function() {
+        $('#priority-filter').on('change', function() {
+            var selectedPriority = $(this).val();
+            $('tr[data-priority]').hide();
+            if (selectedPriority === 'all') {
+                $('tr[data-priority]').show();
+            } else {
+                $('tr[data-priority="' + selectedPriority + '"]').show();
+            }
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
